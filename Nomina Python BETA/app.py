@@ -115,9 +115,11 @@ def listar_departamentos():
 
     return render_template("departamentos.html", departamentos=departamentos)
 
-
 @app.route("/agregar_departamento", methods=["GET", "POST"])
 def agregar_departamento():
+    active_form = False
+    Departamento_ID = None
+
     if "username" not in session:
         return redirect(url_for("login"))
 
@@ -128,11 +130,36 @@ def agregar_departamento():
             cursor = db.cursor()
             cursor.execute("INSERT INTO departamento (Nombre) VALUES (%s)", (nombre_departamento,))
             db.commit()
+            Departamento_ID = cursor.lastrowid
             cursor.close()
+            active_form = True
 
-            return redirect(url_for("listar_departamentos")) 
+    return render_template("agregar_departamento.html", active_form=active_form, Departamento_ID=Departamento_ID)
 
-    return render_template("agregar_departamento.html")
+
+@app.route("/agregar_cargos", methods=["GET", "POST"])
+def agregar_cargos():
+    button_return = False
+    active_form = True  # Mantén el formulario de cargos visible
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        nombre_cargo = request.form["nombre_cargo"]
+        salario_base = request.form["salario_base"]
+        Departamento_ID = request.form["Departamento_ID"]
+
+        if nombre_cargo and salario_base and Departamento_ID:
+            cursor = db.cursor()
+            cursor.execute("INSERT INTO Cargos (Nombre, Departamento_ID, Salario_Base) VALUES (%s, %s, %s)", (nombre_cargo, Departamento_ID, salario_base))
+            db.commit()
+            cursor.close()
+            button_return = True  # Activa el botón de volver
+
+    return render_template("agregar_departamento.html", active_form=active_form, Departamento_ID=Departamento_ID, button_return=button_return)
+
+
 
 @app.route("/Editar_departamento/<int:id_departamento>", methods=["GET", "POST"])
 def Editar_departamento(id_departamento):

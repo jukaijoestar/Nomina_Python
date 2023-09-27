@@ -10,5 +10,21 @@
         <input type="text" id="nombre" name="nombre" required>
         <input type="submit" value="Agregar">
     </form>
+
+    {% if active_form %}
+        <form action="{{ url_for('agregar_cargos') }}" method="POST">
+            <h1>Agregar Cargo</h1>
+            <input type="hidden" name="Departamento_ID" value="{{ Departamento_ID }}">
+            <label for="nombre_cargo">Nombre del cargo</label>
+            <input type="text" id="nombre_cargo" name="nombre_cargo" required>
+            <label for="salario_base">Salario base</label>
+            <input type="text" id="salario_base" name="salario_base" required>
+            <input type="submit" value="Agregar">
+        </form>
+    {% endif %}
+
+    {% if button_return %}
+        <a href="{{ url_for('listar_departamentos') }}">Volver</a>
+    {% endif %}
 </body>
 </html>
