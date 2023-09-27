@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pago éxitoso | GROUPNOMIMANE</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #cacaca;
+        background-image: linear-gradient(
+            120deg,
+            rgba(23, 23, 23, 0.69) 0%,
+            rgba(72, 69, 69, 0.829) 100%
+          ),
+          url("/static/Recources/Fondo3.jpg");
+        width: 100%;
+        height: 650px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+      }
+      h1 {
+        color: #333;
+        font-size: 2rem;
+        margin-bottom: 2px;
+      }
+      p {
+        padding-bottom: 2%;
+      }
+      .modal {
+        display: none;
+        background-color: rgba(94, 93, 93, 0.474);
+        border-radius: 3.3rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        padding: 20px;
+        width: 60%;
+        height: 60%;
+        position: fixed;
+        top: -100%; /* Inicialmente, posiciona el modal fuera de la pantalla */
+        left: 50%;
+        transform: translateX(-50%);
+        transition: top 1s ease-in-out; /* Agrega una transición para suavizar la animación */
+      }
+
+      .modal-content {
+        margin: auto;
+        background-color: #eeeeeec2;
+        height: 100%;
+        border-radius: 30px;
+      }
+
+      .modal a {
+        text-decoration: none;
+        background-color: #a0a0a0;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 3px 0 rgba(149, 149, 149, 0.5);
+        transform: scale(1);
+        transition: transform 0.6s;
+      }
+
+      .modal a:hover {
+        background-color: #f3f1f1;
+        color: #a0a0a0;
+        border: 1px solid;
+        box-shadow: 0 0 6px 0 rgba(231, 231, 231, 0.5);
+        transform: scale(1.03);
+      }
+
+      @keyframes successAnimation {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+      .modal__img {
+        padding-top: 1%;
+        width: 30%;
+        animation: spin 4s linear infinite; /* Agrega una animación de rotación continua */
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal" id="paymentModal">
+      <div class="modal-content">
+        <lord-icon
+          src="https://cdn.lordicon.com/egiwmiit.json"
+          trigger="loop"
+          delay="1500"
+          colors="primary:#16c72e"
+          state="intro"
+          style="width: 200px; height: 200px"
+        >
+        </lord-icon>
+        <h1>El pago se ha realizado con éxito.</h1>
+        <p>¡Pago exitoso! ya podemos volver</p>
+        <a href="{{ url_for('index') }}">Inicio</a>
+      </div>
+    </div>
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    <script src="{{ url_for('static', filename='Recources/Js/ExitoPago.js') }}"></script>
+  </body>
+</html>

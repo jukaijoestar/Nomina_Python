@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Empleado | GROUPNOMIMANE</title>
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Recources/Styles/Estiloedi.css') }}"/>
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+</head>
+<body style="background-color: #f2f2f2"> 
+    <div class="container">
+        <header class="header">
+            <h3>Editar Datos Del Empleado</h3>
+          </header>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-register">
+                <form class="formulario" method="POST">
+                    <div class="form-group">
+                        <label for="departamento">Nombres:</label>
+                        <input placeholder="Nombres" type="text" class="controls" name="nombres" value="{{ empleado['Nombres'] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Apellido Paterno:</label>
+                        <input placeholder="Apellido Paterno" type="text" class="controls" name="apellido_paterno" value="{{ empleado['Apellido_Paterno'] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Apellido Materno:</label>
+                        <input placeholder="Apellido Materno" type="text" class="controls" name="apellido_materno" value="{{ empleado['Apellido_Materno'] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Fecha Nacimiento:</label>
+                        <label for="fecha_nacimiento"></label>
+                        <input type="date" class="controls" name="fecha_nacimiento" value="{{ empleado['Fecha_Nacimiento'] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Dirección:</label>
+                        <input placeholder="Dirección" type="text" class="controls" name="direccion" value="{{ empleado['Direccion'] }}" required>
+                    </div>
+                <div class="form-group">
+                    <label for="departamento">Barrio:</label>
+                    <input placeholder="Barrio" type="text" class="controls" name="barrio" value="{{ empleado['Barrio'] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="departamento">Teléfono:</label>
+                  <input placeholder="Teléfono" type="text" class="controls" name="telefono" value="{{ empleado['Telefono'] }}" required>
+                </div>
+            <div class="form-group">
+                <label for="departamento">Email:</label>
+                <input placeholder="Email" type="email" class="controls" name="email" value="{{ empleado['Email'] }}" required>
+            </div>
+            <div class="form-group">
+                <label>Sueldo:</label>
+                <input
+                    type="number"
+                    class="controls"
+                    name="sueldo"
+                    value="{{ empleado['Sueldo'] }}"
+                    placeholder="Sueldo"
+                    required
+                />
+              </div>
+                    <div class="form-group">
+                        <label for="departamento">Departamento:</label>
+                        <select class="controls" name="departamento" required>
+                            {% for depto in departamentos %}
+                                <option value="{{ depto['ID'] }}" {% if depto['ID'] == empleado['Departamento'] %}selected{% endif %}>{{ depto['Nombre'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="bnt-agregar">
+                        <button type="submit"><i class="fas fa-save fa-lg"></i></button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+            

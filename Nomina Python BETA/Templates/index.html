@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Inicio | GROUPNOMIMANE</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/Estilo.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+  </head>
+
+  <body>
+    <header class="hero">
+      <div class="nav__container">
+        <a href="#menu" class="nav__menu">
+          <img
+            src="{{ url_for('static', filename='/assets/menu.svg') }}"
+            class="nav__icon"
+          />
+        </a>
+
+        <a href="#" class="nav__menu nav__menu--second">
+          <img
+            src="{{ url_for('static', filename='/assets/close.svg') }}"
+            class="nav__icon"
+          />
+        </a>
+
+        <ul class="dropdown" id="menu">
+          <li class="dropdown__list">
+            <a href="#" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/dashboard.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span" data-inicio>Inicio</span>
+            </a>
+          </li>
+
+          <li class="dropdown__list">
+            <a href="#" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/projects.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Listados</span>
+              <img
+                src="{{ url_for('static', filename='/assets/down.svg') }}"
+                class="dropdown__arrow"
+              />
+
+              <input type="checkbox" class="dropdown__check" />
+            </a>
+
+            <div class="dropdown__content">
+              <ul class="dropdown__sub">
+                <li class="dropdown__li">
+                  <a
+                    href="{{ url_for('trabajadores') }}"
+                    class="dropdown__anchor"
+                    >Lista Trabajadores</a
+                  >
+                </li>
+                <li class="dropdown__li">
+                  <a href="{{url_for('inactivos')}}" class="dropdown__anchor"
+                    >Trabajadores Inactivos</a
+                  >
+                </li>
+                <li class="dropdown__li">
+                  <a
+                    href="{{ url_for('listar_departamentos') }}"
+                    class="dropdown__anchor"
+                    >Lista Departamentos</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="dropdown__list">
+            <a href="#equipo" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/message.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span" data-team>Equipo Ejecutivo</span>
+            </a>
+          </li>
+
+          <li class="dropdown__list">
+            <a href="{{ url_for('reportes') }}" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/stats.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Reportes</span>
+            </a>
+          </li>
+
+          <li class="dropdown__list">
+            <a
+              href="{{ url_for('logout') }}"
+              class="dropdown__link"
+              onclick="confirmLogout(event)"
+            >
+              <img
+                src="{{ url_for('static', filename='/assets/Exit.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Salir</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="textos-hero">
+        <h1>Bienvenido a GroupNomimane</h1>
+        <p>Creamos el mejor sitio web para ti</p>
+        <a href="#contacto">Conocenos</a>
+      </div>
+      <div class="svg-hero" style="height: 150px; overflow: hidden">
+        <svg
+          viewBox="0 0 500 150"
+          preserveAspectRatio="none"
+          style="height: 100%; width: 100%"
+        >
+          <path
+            d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+            style="stroke: none; fill: #fff"
+          ></path>
+        </svg>
+      </div>
+    </header>
+
+    <section class="wave-contenedor website">
+      <img
+        src="{{ url_for('static', filename='/assets/ilustracion1.svg') }}"
+        alt=""
+      />
+      <div class="contenedor-textos-main">
+        <h2 class="titulo left">Conoce Lo que hacemos</h2>
+        <p class="parrafo">
+          Nuestro objetivo es brindarte una experiencia sin complicaciones al
+          gestionar y procesar nóminas, permitiéndote ahorrar tiempo y recursos
+          para que puedas enfocarte en lo que realmente importa: hacer crecer tu
+          negocio.
+        </p>
+      </div>
+    </section>
+
+    <section class="info">
+      <div class="contenedor">
+        <h2 class="titulo left">Juntos podemos apoyar</h2>
+        <p>todo esta a tu mano, cuando quieras puedes comenzar</p>
+      </div>
+    </section>
+
+    <section class="cards contenedor" id="contacto">
+      <h2 class="titulo">Nuestros Servicios</h2>
+      <div class="content-cards">
+        <article class="card">
+          <img
+            src="{{ url_for('static', filename='/assets/lupa.svg') }}"
+            alt=""
+          />
+          <h3>Administracion</h3>
+          <p>
+            Tienes el control de tus archivos contables, facil puedes ver la
+            informacion que tienes.
+          </p>
+        </article>
+        <article class="card">
+          <img
+            src="{{ url_for('static', filename='/assets/datos.svg') }}"
+            alt=""
+          />
+          <h3>Base De Datos</h3>
+          <p>
+            No tienes que cargar con documentos si tienes esta pagina en tu
+            dispositvo.
+          </p>
+        </article>
+        <article class="card">
+          <img
+            src="{{ url_for('static', filename='/assets/nomina.svg') }}"
+            alt=""
+          />
+          <h3>Nominas</h3>
+          <p>Paso a paso puedes crear y liquidar nóminas electrónicas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="svg-wave" style="height: 150px; overflow: hidden">
+        <svg
+          viewBox="0 0 500 150"
+          preserveAspectRatio="none"
+          style="height: 100%; width: 100%"
+        >
+          <path
+            d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+            style="stroke: none; fill: #848484e5"
+          ></path>
+        </svg>
+      </div>
+    </section>
+
+    <footer id="equipo">
+      <div class="contenedor">
+        <h2 class="titulo">Equipo Ejecutivo</h2>
+        <hr />
+        <div class="members">
+          <div class="team-mem">
+            <img
+              class="team-image"
+              src="{{ url_for('static', filename='Recources/PARDO.jpg') }}"
+              alt="Imagen de Integrante 1"
+            />
+            <h4>ING. Enguelberth</h4>
+            <p>Diseñador Gráfico</p>
+          </div>
+          <div class="team-mem">
+            <img
+              class="team-image"
+              src="{{ url_for('static', filename='Recources/WILLIAM.jpeg') }}"
+              alt="Imagen de Integrante 2"
+            />
+            <h4>ING. Esteban</h4>
+            <p>Desarrollador Software</p>
+          </div>
+          <div class="team-mem">
+            <img
+              class="team-image"
+              src="{{ url_for('static', filename='Recources/DERIAN.jpeg') }}"
+              alt="Imagen de Integrante 3"
+            />
+            <h4>ING. Derian</h4>
+            <p>Desarrollador Web</p>
+          </div>
+          <div class="team-mem">
+            <img
+              class="team-image"
+              src="{{ url_for('static', filename='Recources/DANIEL.jpeg') }}"
+              alt="Imagen de Integrante 4"
+            />
+            <h4>ING. Daniel</h4>
+            <p>Gerente Produccion</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="scroll-to-top">
+      <a href="#hero">
+        <img
+          src="{{ url_for('static', filename='/assets/arrow.svg') }}"
+          alt="boton top"
+        />
+      </a>
+    </div>
+  </body>
+  <script>
+    /*Boton flotante para dirigir la pagina a la parte superior de la misma*/
+    const scrollToTopButton = document.querySelector(".scroll-to-top a");
+
+    scrollToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    /*Alerta para salir de inicio de sesion*/
+
+    function confirmLogout(event) {
+      event.preventDefault();
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "swal2-confirm",
+          cancelButton: "swal2-cancel",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "¿Estás seguro?",
+          text: "¿Deseas cerrar sesión?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, Cerrar sesión",
+          cancelButtonText: "Cancelar",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "{{ url_for('logout') }}";
+          }
+        });
+    }
+  </script>
+</html>
