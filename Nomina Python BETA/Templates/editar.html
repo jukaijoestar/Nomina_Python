@@ -63,13 +63,20 @@
                 />
               </div>
                     <div class="form-group">
-                        <label for="departamento">Departamento:</label>
-                        <select class="controls" name="departamento" required>
-                            {% for depto in departamentos %}
-                                <option value="{{ depto['ID'] }}" {% if depto['ID'] == empleado['Departamento'] %}selected{% endif %}>{{ depto['Nombre'] }}</option>
+                        <label for="departamento">Área en la que desempeña:</label>
+                        <select class="controls" name="departamento" id="departamento" required>
+                            {% for departamento in departamentos %}
+                            <option value="{{ departamento['ID'] }}">{{ departamento['Nombre'] }}</option>
                             {% endfor %}
-                        </select>
+                        </select><br />
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="cargo">Cargo:</label>
+                        <select class="controls" name="cargo" id="cargo" required>
+                            <!--El javascript se encarga de rellenar este campo-->
+                        </select><br />
+                    </div>                 
                     <div class="bnt-agregar">
                         <button type="submit"><i class="fas fa-save fa-lg"></i></button>
                     </div>
@@ -78,6 +85,42 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Obtener el combobox de departamentos y cargos
+        const departamentoSelect = document.getElementById('departamento');
+        const cargoSelect = document.getElementById('cargo');
+    
+        // Cargando inicial de los cargos al cargar la página
+        cargarCargos();
+    
+        // Agregar un evento de cambio al combobox de departamentos
+        departamentoSelect.addEventListener('change', cargarCargos);
+    
+        // Función para cargar los cargos basados en el departamento seleccionado
+        function cargarCargos() {
+            // Obtener el ID del departamento seleccionado
+            const departamentoID = departamentoSelect.value;
+    
+            // Limpia las opciones actuales
+            cargoSelect.innerHTML = '';
+    
+            // Si se ha seleccionado un departamento, cargar los cargos
+            if (departamentoID) {
+                fetch(`/cargos/${departamentoID}`)
+                    .then(response => response.json())
+                    .then(cargos => {
+                        // Agregar las opciones al combobox de cargos
+                        cargos.forEach(cargo => {
+                            const option = document.createElement('option');
+                            option.value = cargo['ID'];
+                            option.text = cargo['Nombre'];
+                            cargoSelect.appendChild(option);
+                        });
+                    });
+            }
+        }
+    </script>
 </body>
 </html>
 

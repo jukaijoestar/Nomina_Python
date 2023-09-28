@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session, Response
+from flask import Flask, render_template, request, redirect, url_for, session, Response, jsonify
 import mysql.connector
 import openpyxl
 from openpyxl.styles import PatternFill, Border, Side
 from datetime import datetime
 import plotly.express as px
 import pandas as pd
+import json
 import re
 
 app = Flask(__name__)
@@ -185,6 +186,19 @@ def Editar_departamento(id_departamento):
 
     return render_template("Editar_departamento.html", departamento=departamento)
 
+@app.route("/cargos/<int:departamento_id>")
+def obtener_cargos(departamento_id):
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM Cargos WHERE Departamento_ID = %s", (departamento_id,))
+    cargos = cursor.fetchall()
+    cursor.close()
+
+    try:
+        # Convertir a JSON utilizando jsonify
+        return jsonify(cargos)
+    except Exception as e:
+        print(f"Error al convertir a JSON: {e}")
+        return jsonify({"error": "Error al convertir a JSON"}), 500
 
 @app.route("/agregar", methods=["GET", "POST"])
 def agregar():
@@ -204,11 +218,12 @@ def agregar():
         telefono = request.form["telefono"]
         email = request.form["email"]
         departamento_id = int(request.form["departamento"])
-        Sueldo = int(request.form["sueldo"])
+        sueldo = int(request.form["sueldo"])
+        cargo_id = int(request.form["cargo"])  # Agregado para obtener el cargo seleccionado
 
-        query = "INSERT INTO empleados (Nombres, Nro_documento, Apellido_Paterno, Apellido_Materno, Fecha_Nacimiento, Direccion, Barrio, Telefono, Email, Departamento, Sueldo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO empleados (Nombres, Nro_documento, Apellido_Paterno, Apellido_Materno, Fecha_Nacimiento, Direccion, Barrio, Telefono, Email, Departamento, Sueldo, Cargo_ID) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         values = (nombres, nro_documento, apellido_paterno, apellido_materno, fecha_nacimiento,
-                  direccion, barrio, telefono, email, departamento_id, Sueldo)
+                  direccion, barrio, telefono, email, departamento_id, sueldo, cargo_id)
         cursor.execute(query, values)
         db.commit()
         cursor.close()
@@ -241,10 +256,11 @@ def editar(id_empleado):
         email = request.form["email"]
         departamento = int(request.form["departamento"])
         sueldo = float(request.form["sueldo"])  # Asegúrate de convertirlo a float si es un número decimal
+        cargo = int(request.form["cargo"])  # Nuevo campo para el cargo
 
-        query = "UPDATE empleados SET Nombres = %s, Apellido_Paterno = %s, Apellido_Materno = %s, Fecha_Nacimiento = %s, Direccion = %s, Barrio = %s, Telefono = %s, Email = %s, Departamento = %s, Sueldo = %s WHERE ID = %s"
+        query = "UPDATE empleados SET Nombres = %s, Apellido_Paterno = %s, Apellido_Materno = %s, Fecha_Nacimiento = %s, Direccion = %s, Barrio = %s, Telefono = %s, Email = %s, Departamento = %s, Sueldo = %s, Cargo_ID = %s WHERE ID = %s"
         values = (nombres, apellido_paterno, apellido_materno, fecha_nacimiento,
-                  direccion, barrio, telefono, email, departamento, sueldo, id_empleado)
+                  direccion, barrio, telefono, email, departamento, sueldo, cargo, id_empleado)
         cursor.execute(query, values)
         db.commit()
         cursor.close()
@@ -253,11 +269,18 @@ def editar(id_empleado):
 
     cursor.execute("SELECT * FROM empleados WHERE ID = %s", (id_empleado,))
     empleado = cursor.fetchone()
+
+    # Obtener el ID del departamento del empleado
+    departamento_empleado = empleado['Departamento']
+
+    # Obtener los cargos del departamento del empleado
+    cursor.execute("SELECT * FROM cargos WHERE Departamento_ID = %s", (departamento_empleado,))
+    cargos = cursor.fetchall()
     cursor.execute("SELECT * FROM departamento")
     departamentos = cursor.fetchall()
     cursor.close()
 
-    return render_template("editar.html", empleado=empleado, departamentos=departamentos)
+    return render_template("editar.html", empleado=empleado, departamentos=departamentos, cargos=cargos)
 
 
 
