@@ -70,8 +70,6 @@ def registro():
 
     return render_template('registro.html', error_password=error_password, error_correo=error_correo)
 
-
-
 @app.route("/trabajadores")
 def trabajadores():
     if "username" not in session:
@@ -89,6 +87,66 @@ def trabajadores():
 
     return render_template("trabajadores.html", empleados=empleados_activos)
 
+@app.route("/cargos", methods=['GET', 'POST'])
+def cargos():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == 'POST':
+        departamento_id = request.form.get('departamento')
+
+        # Consulta SQL para obtener la lista de cargos según el departamento seleccionado
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM cargos WHERE Departamento_ID = %s
+        """, (departamento_id,))
+        lista_cargos = cursor.fetchall()
+        cursor.close()
+
+        # Consulta SQL para obtener la lista de departamentos
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM departamento
+        """)
+        lista_departamentos = cursor.fetchall()
+        cursor.close()
+
+        return render_template("cargos.html", departamentos=lista_departamentos, cargos=lista_cargos)
+
+    # Consulta SQL para obtener la lista de departamentos
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT * FROM departamento
+    """)
+    lista_departamentos = cursor.fetchall()
+    cursor.close()
+
+    return render_template("cargos.html", departamentos=lista_departamentos, cargos=[])
+
+# Ruta para eliminar cargo
+@app.route("/eliminar_cargo", methods=['POST'])
+def eliminar_cargo():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == 'POST':
+        cargo_id = request.form.get('cargo_id')
+
+        # Consulta SQL para eliminar el cargo
+        cursor = db.cursor()
+        cursor.execute("""
+            DELETE FROM cargos WHERE ID = %s
+        """, (cargo_id,))
+        db.commit()
+        cursor.close()
+
+        # Redireccionar de nuevo a la página de cargos después de eliminar
+        return redirect(url_for("cargos"))
+
+    # Manejar el caso en que no se proporcione un ID de cargo
+    return jsonify(success=False, error='No se proporcionó un ID de cargo')
+
+
 @app.route("/index")
 def index():
     if "username" not in session:
@@ -105,16 +163,8 @@ def listar_departamentos():
     departamentos = cursor.fetchall()
     cursor.close()
 
-    if request.method == "POST":
-        if "eliminar" in request.form:
-            id_departamento_eliminar = int(request.form["eliminar"])
-            cursor = db.cursor()
-            cursor.execute("DELETE FROM departamento WHERE ID = %s", (id_departamento_eliminar,))
-            db.commit()
-            cursor.close()
-            return redirect(url_for("listar_departamentos")) 
-
     return render_template("departamentos.html", departamentos=departamentos)
+
 
 @app.route("/agregar_departamento", methods=["GET", "POST"])
 def agregar_departamento():
@@ -194,8 +244,9 @@ def obtener_cargos(departamento_id):
     cursor.close()
 
     try:
-        # Convertir a JSON utilizando jsonify
-        return jsonify(cargos)
+        # Convertir a JSON utilizando json.dumps
+        cargos_json = json.dumps(cargos)
+        return cargos_json
     except Exception as e:
         print(f"Error al convertir a JSON: {e}")
         return jsonify({"error": "Error al convertir a JSON"}), 500
