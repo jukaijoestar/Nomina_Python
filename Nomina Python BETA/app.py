@@ -15,7 +15,11 @@ db = mysql.connector.connect(
 )
 cursor = db.cursor()
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+def layout():
+    return render_template('layout.html')
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
         username = request.form['username']
