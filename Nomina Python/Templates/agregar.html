@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Agregar Empleado | GROUPNOMIMANE</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/Estiloagr.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+  </head>
+  <body style="background-color: #f2f2f2">
+    <div class="container">
+      <header class="header">
+        <h3 class="text-center">Agregar Nuevo Empleado A La Lista</h3>
+      </header>
+      <div class="mensaje">
+        <label
+          >Por favor, diligencie los siguientes datos para finalizar su
+          registro</label
+        >
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="form-register">
+            <form class="formulario" method="post">
+              <div class="form-group">
+                <label>N° Documento:</label>
+                <input
+                  type="number"
+                  class="controls"
+                  name="nro_documento"
+                  placeholder="N° Documento"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Nombres:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  name="nombres"
+                  autocomplete="off"
+                  placeholder="Nombres"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Apellido Paterno:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  name="apellido_paterno"
+                  autocomplete="off"
+                  placeholder="Apellido Paterno"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Apellido Materno:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  name="apellido_materno"
+                  autocomplete="off"
+                  placeholder="Apellido Materno"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Fecha Nacimiento:</label>
+                <label for="fecha_nacimiento"></label>
+                <input
+                  type="date"
+                  class="controls"
+                  autocomplete="off"
+                  name="fecha_nacimiento"
+                  required
+                /><br />
+              </div>
+              <div class="form-group">
+                <label>Dirección:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  autocomplete="off"
+                  name="direccion"
+                  placeholder="Dirección"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Barrio:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  autocomplete="off"
+                  name="barrio"
+                  placeholder="Barrio"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Teléfono:</label>
+                <input
+                  type="text"
+                  class="controls"
+                  autocomplete="off"
+                  name="telefono"
+                  placeholder="Teléfono"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  class="controls"
+                  name="email"
+                  autocomplete="off"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="departamento">Área en la que desempeña:</label>
+                <select class="controls" name="departamento" id="departamento" required>
+                    {% for departamento in departamentos %}
+                    <option value="{{ departamento['ID'] }}">{{ departamento['Nombre'] }}</option>
+                    {% endfor %}
+                </select><br />
+              </div>
+              
+              <div class="form-group">
+                  <label for="cargo">Cargo:</label>
+                  <select class="controls" name="cargo" id="cargo" required>
+                      <!--El javascript se encarga de rellenar este campo-->
+                  </select><br />
+              </div>
+              
+              <div class="form-group">
+                  <label for="sueldo">Sueldo:</label>
+                  <input type="number" class="controls" name="sueldo" id="sueldo" required>
+              </div>
+              <div class="bnt-agregar">
+                <button type="submit" class="botons">Agregar Empleado</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Obtener el combobox de departamentos y cargos
+      const departamentoSelect = document.getElementById('departamento');
+      const cargoSelect = document.getElementById('cargo');
+      const sueldoInput = document.getElementById('sueldo');
+  
+      // Cargando inicial de los cargos al cargar la página
+      cargarCargos();
+  
+      // Agregar un evento de cambio al combobox de departamentos
+      departamentoSelect.addEventListener('change', cargarCargos);
+      cargoSelect.addEventListener('change', actualizarSueldo);
+  
+      // Función para cargar los cargos basados en el departamento seleccionado
+      function cargarCargos() {
+          // Obtener el ID del departamento seleccionado
+          const departamentoID = departamentoSelect.value;
+  
+          // Limpia las opciones actuales
+          cargoSelect.innerHTML = '';
+  
+          // Si se ha seleccionado un departamento, cargar los cargos
+          if (departamentoID) {
+              fetch(`/cargos/${departamentoID}`)
+                  .then(response => response.json())
+                  .then(cargos => {
+                      // Agregar las opciones al combobox de cargos
+                      cargos.forEach(cargo => {
+                          const option = document.createElement('option');
+                          option.value = cargo['ID'];
+                          option.text = `${cargo['Nombre']} - ${cargo['Salario_Base']}`;
+                          cargoSelect.appendChild(option);
+                      });
+                      
+                      // Actualizar el campo de sueldo cuando se cargan los cargos
+                      actualizarSueldo();
+                  });
+          }
+      }
+  
+      // Función para actualizar el campo de sueldo cuando se selecciona un cargo
+      function actualizarSueldo() {
+          const selectedCargo = cargoSelect.options[cargoSelect.selectedIndex];
+          const salarioBase = selectedCargo.text.split('-')[1].trim();
+          
+          // Asignar el salario base al campo de sueldo
+          sueldoInput.value = salarioBase;
+      }
+  </script>  
+  </body>
+</html>

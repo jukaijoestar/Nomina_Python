@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Empleados</title>
+</head>
+<body>
+    <h1>Reporte de Empleados</h1>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Nombres</th>
+            <!-- Agregar más encabezados según sea necesario -->
+        </tr>
+        {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.Nombres }}</td>
+                <!-- Agregar más celdas según sea necesario -->
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GroupNomimane | SENA</title>
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/layout.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/mediaqueries.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <!--<div class="logo"><h1>G|Nomimane</h1></div>-->
+      <div>
+        <ul class="nav-links">
+          <li><a href="#nosotros">Sobre Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="{{ url_for('login') }}">Log In</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">John Doe</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#inicio" onclick="toggleMenu()">Home</a></li>
+          <li><a href="#nosotros" onclick="toggleMenu()">About</a></li>
+          <li><a href="#experiencia" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="#equipo" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="#contacto" onclick="toggleMenu()">Contact</a></li>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido de la sección "Inicio" -->
+    <section id="inicio">
+      <div class="carousel-container">
+        <div class="carousel">
+          <!--<div
+            class="carousel-slide"
+            style="background-image: url('./assets/Fondo.jpg')"
+          ></div>
+          <div
+            class="carousel-slide"
+            style="background-image: url('./assets/Fondo1.jpg')"
+          ></div>
+          <div
+            class="carousel-slide"
+            style="background-image: url('./assets/Fondo2.jpg')"
+          ></div>
+          <div
+            class="carousel-slide"
+            style="background-image: url('./assets/Fondo3.jpg')"
+          ></div>
+          <div
+            class="carousel-slide"
+            style="background-image: url('./assets/Fondo4.jpg')"
+          ></div>-->
+        </div>
+      </div>
+      <button class="carousel-button prev-button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button class="carousel-button next-button">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <div class="content">
+        <div class="section__text">
+          <p class="section__text__p1">Hola mundo, estas en</p>
+          <h1 class="title">GroupNomimane</h1>
+          <h2 class="sub-title">Somos <span class="auto-type"></span></h2>
+          <p class="section__text__p1">Bienvenido a nuestro sitio web. 👋🏼</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Sobre Nosotros" -->
+    <section id="nosotros">
+      <p class="section__text__p1" data-aos="fade-down">Conozca más</p>
+      <h1 class="title">Lo Que Hacemos</h1>
+      <div class="section-container">
+        <div class="section__pic-container" data-aos="fade-up">
+          <img
+            src="{{ url_for('static', filename='Recources/Img3.png') }}"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container" data-aos="fade-right">
+              <i class="fas fa-medal icon" alt="Education icon"></i>
+              <h3>Experience</h3>
+              <p>2+ Años <br />Brindando Efectividad</p>
+            </div>
+            <div class="details-container" data-aos="fade-left">
+              <i
+                class="fa-solid fa-graduation-cap icon"
+                alt="Education icon"
+              ></i>
+              <h3>Education</h3>
+              <p>
+                SENA. Industrial Y Aviacion <br />
+                Youtube
+              </p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p>
+              Nuestro objetivo es brindarte una experiencia sin complicaciones
+              al gestionar y procesar nóminas, permitiéndote ahorrar tiempo y
+              recursos para que puedas enfocarte en lo que realmente importa:
+              hacer crecer tu negocio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Servicios" -->
+    <section id="servicios">
+      <p class="section__text__p1" data-aos="fade-down">¿No Lo Sabias?</p>
+      <h1 class="title">Nuestros Servicios</h1>
+      <div class="card__container">
+        <article class="card__article" data-aos="fade-right">
+          <img
+            src="{{ url_for('static', filename='Recources/Img1.png') }}"
+            alt="image"
+            class="card__img"
+          />
+
+          <div class="card__data">
+            <span class="card__description">Todo en un solo lugar</span>
+            <h2 class="card__title">Administracion</h2>
+            <a href="#" class="card__button">Read More</a>
+          </div>
+        </article>
+
+        <article class="card__article" data-aos="fade-up">
+          <img
+            src="{{ url_for('static', filename='Recources/Img2.png') }}"
+            alt="image"
+            class="card__img"
+          />
+
+          <div class="card__data">
+            <span class="card__description">Informacion segura</span>
+            <h2 class="card__title">Base De Datos</h2>
+            <a href="#" class="card__button">Read More</a>
+          </div>
+        </article>
+
+        <article class="card__article" data-aos="fade-left">
+          <img
+            src="{{ url_for('static', filename='Recources/Img.png') }}"
+            alt="image"
+            class="card__img"
+          />
+
+          <div class="card__data">
+            <span class="card__description">Organizacion y efectividad</span>
+            <h2 class="card__title">Nominas</h2>
+            <a href="#" class="card__button">Read More</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Experiencia" -->
+    <section id="experiencia">
+      <p class="section__text__p1" data-aos="fade-down">Explora Nuestra</p>
+      <h1 class="title">Experiencia</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <h2 class="experience-sub-title">Herramientas De Desarrollo</h2>
+            <div class="article-container">
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-out-right">
+                  <h3>HTML</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-in">
+                  <h3>CSS</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-in">
+                  <h3>Mysql</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-in">
+                  <h3>JavaScript</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-out-left">
+                  <h3>TypeScript</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-out-right">
+                  <h3>Python</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <i class="fa-solid fa-square-check icon"></i>
+                <div data-aos="zoom-out-left">
+                  <h3>Python</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Equipo" -->
+    <section id="equipo">
+      <p class="section__text__p1" data-aos="fade-down">Quienes Somos</p>
+      <h1 class="title">Equipo Ejecutivo</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <!-- Tarjeta Esteban-->
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="{{ url_for('static', filename='Recources/WILLIAM.jpeg') }}"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">ING. Esteban</h2>
+            <div class="sub-container">
+              <p class="card-text sub">Desarrollador Software</p>
+            </div>
+
+            <div class="separator"></div>
+
+            <li class="contact-item">
+              <div class="contact-info">
+                <p class="contact-title">
+                  <i class="fas fa-map-marker-alt"> </i>_Location
+                </p>
+                <address>Barranquilla, Atlantico</address>
+              </div>
+            </li>
+
+            <div class="separator"></div>
+
+            <ul class="social-list">
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-facebook"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-x-twitter"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-instagram"></i>
+                </a>
+              </li>
+            </ul>
+            <p class="card-text">
+              <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </p>
+          </div>
+
+          <!-- Tarjeta Derian-->
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="{{ url_for('static', filename='Recources/DERIAN.jpeg') }}"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">ING. Derian</h2>
+            <div class="sub-container">
+              <p class="card-text sub">Desarrollador Web</p>
+            </div>
+
+            <div class="separator"></div>
+
+            <li class="contact-item">
+              <div class="contact-info">
+                <p class="contact-title">
+                  <i class="fas fa-map-marker-alt"> </i>_Location
+                </p>
+                <address>Barranquilla, Atlantico</address>
+              </div>
+            </li>
+
+            <div class="separator"></div>
+
+            <ul class="social-list">
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-facebook"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-x-twitter"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-instagram"></i>
+                </a>
+              </li>
+            </ul>
+            <p class="card-text">
+              <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </p>
+          </div>
+
+          <!-- Tarjeta Daniel-->
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="{{ url_for('static', filename='Recources/DANIEL.jpeg') }}"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">ING. Daniel</h2>
+            <div class="sub-container">
+              <p class="card-text sub">Gerente Produccion</p>
+            </div>
+
+            <div class="separator"></div>
+
+            <li class="contact-item">
+              <div class="contact-info">
+                <p class="contact-title">
+                  <i class="fas fa-map-marker-alt"> </i>_Location
+                </p>
+                <address>Barranquilla, Atlantico</address>
+              </div>
+            </li>
+
+            <div class="separator"></div>
+
+            <ul class="social-list">
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-facebook"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-x-twitter"></i>
+                </a>
+              </li>
+              <li class="social-item">
+                <a href="#" class="social-link">
+                  <i class="fa-brands fa-square-instagram"></i>
+                </a>
+              </li>
+            </ul>
+            <p class="card-text">
+              <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Contacto" -->
+    <section id="contacto">
+      <p class="section__text__p1" data-aos="fade-down">Ponerse en contacto</p>
+      <h1 class="title">Contáctenos</h1>
+      <div class="contact-info-upper-container">
+        <iframe
+          data-aos="zoom-in-down"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.2742702293144!2d-74.785787625825!3d10.942642556107614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef5d390bce185a1%3A0x7b668739ec70f4b4!2sSENA%20CENTRO%20INDUSTRIAL%20Y%20DE%20AVIACION!5e0!3m2!1ses-419!2sco!4v1696425901242!5m2!1ses-419!2sco"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <div class="contact-form">
+          <h3 class="h3 form-title">Formulario De Contacto</h3>
+
+          <form action="#" class="form" data-form>
+            <div class="input-wrapper" data-aos="fade-up">
+              <input
+                type="text"
+                name="fullname"
+                class="form-input"
+                placeholder="Nombre"
+                required
+                data-form-input
+              />
+
+              <input
+                type="email"
+                name="email"
+                class="form-input"
+                placeholder="Email"
+                required
+                data-form-input
+              />
+            </div>
+
+            <textarea
+              data-aos="fade-up"
+              name="message"
+              class="form-input"
+              placeholder="Mensaje"
+              required
+              data-form-input
+            ></textarea>
+
+            <button class="form-btn" type="submit">
+              <lord-icon
+                name="paper-plane"
+                src="https://cdn.lordicon.com/ehfubvwr.json"
+                trigger="hover"
+                colors="primary:#ffffff"
+                state="hover"
+                style="width: 30px; height: 30px"
+              >
+              </lord-icon>
+              <!--<span>Send Message</span>-->
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenido de la sección "Final De Pagina" -->
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a class="final" href="#desktop-nav">Home</a></li>
+            <li><a class="final" href="#nosotros">Sobre Nosotros</a></li>
+            <li><a class="final" href="#servicios">Servicios</a></li>
+            <li><a class="final" href="#experiencia">Experiencia</a></li>
+            <li><a class="final" href="#equipo">Equipo</a></li>
+            <li><a class="final" href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2023 GroupNomimane. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Botón flotante para ir hacia arriba -->
+    <div id="scroll-to-top" class="scroll-to-top">
+      <i class="fa-solid fa-angles-up"></i>
+    </div>
+
+    <script src="{{ url_for('static', filename='Recources/Js/layout.js') }}"></script>
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1500, // Cambia este valor según tus preferencias
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Empleados</title>
+    <!-- Agrega las bibliotecas de Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Estadísticas de Empleados</h1>
+
+    <h2>Cantidad de Empleados por Departamento:</h2>
+    <div id="grafico_departamentos">{{ grafico_departamentos_html|safe }}</div>
+
+    <h2>Empleados Activos vs. Inactivos:</h2>
+    <div id="grafico_estado">{{ grafico_estado_html|safe }}</div>
+
+    <h2>Ganancias Anuales:</h2>
+    <div id="grafico_ganancias">{{ grafico_ganancias_html|safe }}</div>
+
+    <!-- Agrega el texto del pago total a todos los empleados -->
+    <h2>{{ texto_pago_total }}</h2>
+
+    <a href="{{ url_for('generar_reporte') }}" class="dropdown__link">
+        <img
+          src="{{ url_for('static', filename='/assets/stats.svg') }}"
+          class="dropdown__icon"
+        />
+        <span class="dropdown__span">Reportes</span>
+    </a>
+</body>
+</html>

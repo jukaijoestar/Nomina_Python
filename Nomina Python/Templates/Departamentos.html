@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista Departamentos | GROUPNOMIMANE</title>
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/Estilodepa.css') }}"
+    />
+  </head>
+  <body>
+    <div class="nav__container">
+      <a href="#menu" class="nav__menu">
+        <i class="fa-regular fa-chart-bar menu_icon"></i>
+      </a>
+
+      <a href="#" class="nav__menu nav__menu--second">
+        <img
+          src="{{ url_for('static', filename='/assets/close.svg') }}"
+          class="nav__icon"
+        />
+      </a>
+
+      <ul class="dropdown" id="menu">
+        <li class="dropdown__list">
+          <a href="{{ url_for('index') }}" class="dropdown__link">
+            <img
+              src="{{ url_for('static', filename='/assets/dashboard.svg') }}"
+              class="dropdown__icon"
+            />
+            <span class="dropdown__span" data-inicio>Inicio</span>
+          </a>
+        </li>
+
+        <li class="dropdown__list">
+          <a href="#" class="dropdown__link">
+            <img
+              src="{{ url_for('static', filename='/assets/projects.svg') }}"
+              class="dropdown__icon"
+            />
+            <span class="dropdown__span">Listados</span>
+            <img
+              src="{{ url_for('static', filename='/assets/down.svg') }}"
+              class="dropdown__arrow"
+            />
+
+            <input type="checkbox" class="dropdown__check" />
+          </a>
+
+          <div class="dropdown__content">
+            <ul class="dropdown__sub">
+              <li class="dropdown__li">
+                <a href="{{ url_for('trabajadores') }}" class="dropdown__anchor"
+                  >Lista Trabajadores</a
+                >
+              </li>
+              <li class="dropdown__li">
+                <a href="{{url_for('inactivos')}}" class="dropdown__anchor"
+                  >Trabajadores Inactivos</a
+                >
+              </li>
+              <li class="dropdown__li">
+                <a
+                  href="{{ url_for('listar_departamentos') }}"
+                  class="dropdown__anchor"
+                  >Lista Departamentos</a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="dropdown__list">
+          <a href="{{ url_for('reportes') }}" class="dropdown__link">
+            <img
+              src="{{ url_for('static', filename='/assets/stats.svg') }}"
+              class="dropdown__icon"
+            />
+            <span class="dropdown__span">Reportes</span>
+          </a>
+        </li>
+
+        <li class="dropdown__list">
+          <a
+            href="{{ url_for('logout') }}"
+            class="dropdown__link"
+            onclick="confirmLogout(event)"
+          >
+            <img
+              src="{{ url_for('static', filename='/assets/Exit.svg') }}"
+              class="dropdown__icon"
+            />
+            <span class="dropdown__span">Salir</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <h1>Lista de Departamentos</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for departamento in departamentos %}
+          <tr>
+            <td>{{ departamento.ID }}</td>
+            <td>{{ departamento.Nombre }}</td>
+            <td>09/10/2023</td>
+            <td>
+              <a
+                href="{{ url_for('Editar_departamento', id_departamento=departamento.ID) }}"
+                class="editar"
+              >
+                <i class="fas fa-user-edit"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <a href="{{ url_for('agregar_departamento') }}" class="floating-button">
+      <i class="fa-solid fa-folder-plus"></i>
+    </a>
+  </body>
+</html>

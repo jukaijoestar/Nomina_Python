@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Inicio | GROUPNOMIMANE</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Recources/Styles/Estilo.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='Recources/logo.png')}}"
+    />
+  </head>
+
+  <body>
+    <header class="hero">
+      <div class="nav__container">
+        <a href="#menu" class="nav__menu">
+          <i class="fa-regular fa-chart-bar menu_icon"></i>
+        </a>
+
+        <a href="#" class="nav__menu nav__menu--second">
+          <img
+            src="{{ url_for('static', filename='/assets/close.svg') }}"
+            class="nav__icon"
+          />
+        </a>
+
+        <ul class="dropdown" id="menu">
+          <li class="dropdown__list">
+            <a href="#" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/dashboard.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span" data-inicio>Inicio</span>
+            </a>
+          </li>
+
+          <li class="dropdown__list">
+            <a href="#" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/projects.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Listados</span>
+              <img
+                src="{{ url_for('static', filename='/assets/down.svg') }}"
+                class="dropdown__arrow"
+              />
+
+              <input type="checkbox" class="dropdown__check" />
+            </a>
+
+            <div class="dropdown__content">
+              <ul class="dropdown__sub">
+                <li class="dropdown__li">
+                  <a
+                    href="{{ url_for('trabajadores') }}"
+                    class="dropdown__anchor"
+                    >Lista Trabajadores</a
+                  >
+                </li>
+                <li class="dropdown__li">
+                  <a href="{{url_for('inactivos')}}" class="dropdown__anchor"
+                    >Trabajadores Inactivos</a
+                  >
+                </li>
+                <li class="dropdown__li">
+                  <a
+                    href="{{ url_for('listar_departamentos') }}"
+                    class="dropdown__anchor"
+                    >Lista Departamentos</a
+                  >
+                </li>
+                <li class="dropdown__li">
+                  <a
+                    href="{{ url_for('cargos') }}"
+                    class="dropdown__anchor"
+                    >Lista Cargos</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="dropdown__list">
+            <a href="{{ url_for('reportes') }}" class="dropdown__link">
+              <img
+                src="{{ url_for('static', filename='/assets/stats.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Reportes</span>
+            </a>
+          </li>
+
+          <li class="dropdown__list">
+            <a
+              href="{{ url_for('logout') }}"
+              class="dropdown__link"
+              onclick="confirmLogout(event)"
+            >
+              <img
+                src="{{ url_for('static', filename='/assets/Exit.svg') }}"
+                class="dropdown__icon"
+              />
+              <span class="dropdown__span">Salir</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <!-- Modal de Bienvenida -->
+    <div id="modal-bienvenida" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img
+            src="{{ url_for('static', filename='Recources/Img8.png') }}"
+            alt="Icono de bienvenida"
+            class="modal-icon"
+          />
+          <h2>Bienvenido, Administrador</h2>
+        </div>
+        <p>¡Gracias por utilizar nuestro sistema de administración!</p>
+        <button id="cerrar-modal">Cerrar</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <main>
+        <ul class="insights">
+          <li>
+            <i class="bx bx-calendar-check"></i>
+            <span class="info">
+              <h3>1,074</h3>
+              <p>N° Ordenes</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bx-show-alt"></i>
+            <span class="info">
+              <h3>3,944</h3>
+              <p>Visita al sitio</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bx-line-chart"></i>
+            <span class="info">
+              <h3>14,721</h3>
+              <p>Búsquedas</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bx-dollar-circle"></i>
+            <span class="info">
+              <h3>$6,742</h3>
+              <p>Nominas Pagadas</p>
+            </span>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-receipt"></i>
+              <h3>Ingresos Recientes</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Fecha Registrada</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      src="{{ url_for('static', filename='Recources/DERIAN.jpeg') }}"
+                    />
+                    <p>Derian Serrano</p>
+                  </td>
+                  <td>10-10-2023</td>
+                  <td><span class="status completed">Completado</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="{{ url_for('static', filename='Recources/WILLIAM.jpeg') }}"
+                    />
+                    <p>Esteban</p>
+                  </td>
+                  <td>09-10-2023</td>
+                  <td><span class="status pending">Pendiente</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="{{ url_for('static', filename='Recources/DANIEL.jpeg') }}"
+                    />
+                    <p>Mari Rosa Melano</p>
+                  </td>
+                  <td>05-09-2023</td>
+                  <td><span class="status process">Procesando</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script>
+    /*Alerta para salir de inicio de sesion*/
+    function confirmLogout(event) {
+      event.preventDefault();
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "swal2-confirm",
+          cancelButton: "swal2-cancel",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "¿Estás seguro?",
+          text: "¿Deseas cerrar sesión?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, Cerrar sesión",
+          cancelButtonText: "Cancelar",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "{{ url_for('logout') }}";
+          }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Mostrar el modal de bienvenida al cargar la página
+      const modalBienvenida = document.getElementById("modal-bienvenida");
+      modalBienvenida.style.display = "block";
+
+      // Ocultar el modal al hacer clic en el botón "Cerrar"
+      const cerrarModalBtn = document.getElementById("cerrar-modal");
+      cerrarModalBtn.addEventListener("click", function () {
+        modalBienvenida.style.display = "none";
+      });
+    });
+  </script>
+</html>
